@@ -28,6 +28,17 @@ tomcat tomcat_conf:
     - watch_in:
       - service: tomcat package installed and service running
 
+{% if tomcat.catalina_tmpdir|default %}
+catalina tmpdir:
+  file.directory:
+    - name: {{ tomcat.catalina_tmpdir }}
+    - user: {{ tomcat.user }}
+    - group: {{ tomcat.group }}
+    - makedirs: True
+    - require_in:
+      - service: tomcat package installed and service running
+{% endif %}
+
 tomcat 100_server_xml:
   file.accumulated:
     - name: 100_server_xml
