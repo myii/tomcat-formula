@@ -180,6 +180,8 @@ suites:
           '*':
             - tomcat.yaml_dump
             - tomcat
+            - tomcat.native
+            - tomcat.config
       pillars:
         top.sls:
           base:
