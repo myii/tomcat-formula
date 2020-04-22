@@ -59,8 +59,9 @@ jobs:
     # Make sure the instances listed below match up with
     # the `platforms` defined in `kitchen.yml`
     - env: INSTANCE=tomcat-install-debian-10-master-py3
+    - env: INSTANCE=tomcat-extend-debian-10-master-py3
     - env: INSTANCE=tomcat-install-ubuntu-1804-master-py3
-    # - env: INSTANCE=tomcat-extend-ubuntu-1804-master-py3
+    - env: INSTANCE=tomcat-extend-ubuntu-1804-master-py3
     # - env: INSTANCE=tomcat-install-centos-8-master-py3
     - env: INSTANCE=tomcat-install-fedora-31-master-py3
     - env: INSTANCE=tomcat-install-opensuse-leap-151-master-py3
@@ -75,6 +76,7 @@ jobs:
     # - env: INSTANCE=tomcat-install-arch-base-latest-3000-1-py2
     # - env: INSTANCE=tomcat-install-debian-10-2019-2-py3
     - env: INSTANCE=tomcat-install-debian-9-2019-2-py3
+    - env: INSTANCE=tomcat-extend-debian-9-2019-2-py3
     # - env: INSTANCE=tomcat-install-ubuntu-1804-2019-2-py3
     # - env: INSTANCE=tomcat-install-ubuntu-1604-2019-2-py3
     # - env: INSTANCE=tomcat-install-centos-8-2019-2-py3
