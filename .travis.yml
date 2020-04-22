@@ -28,40 +28,39 @@ jobs:
   include:
     ## Define the test stage that runs the linters (and testing matrix, if applicable)
 
-    # Run all of the linters in a single job
-    - language: 'node_js'
-      node_js: 'lts/*'
-      env: 'Lint'
-      name: 'Lint: salt-lint, yamllint, rubocop, shellcheck & commitlint'
-      before_install: 'skip'
-      script:
-        # Install and run `salt-lint`
-        - pip install --user salt-lint
-        - git ls-files -- '*.sls' '*.jinja' '*.j2' '*.tmpl' '*.tst'
-                        | xargs salt-lint
-        # Install and run `yamllint`
-        # Need at least `v1.17.0` for the `yaml-files` setting
-        - pip install --user yamllint>=1.17.0
-        - yamllint -s .
-        # Install and run `rubocop`
-        - gem install rubocop
-        - rubocop -d
-        # Run `shellcheck` (already pre-installed in Travis)
-        - shellcheck --version
-        - git ls-files -- '*.sh' '*.bash' '*.ksh'
-                        | xargs shellcheck
-        # Install and run `commitlint`
-        - npm i -D @commitlint/config-conventional
-                   @commitlint/travis-cli
-        - commitlint-travis
+    # # Run all of the linters in a single job
+    # - language: 'node_js'
+    #   node_js: 'lts/*'
+    #   env: 'Lint'
+    #   name: 'Lint: salt-lint, yamllint, rubocop, shellcheck & commitlint'
+    #   before_install: 'skip'
+    #   script:
+    #     # Install and run `salt-lint`
+    #     - pip install --user salt-lint
+    #     - git ls-files -- '*.sls' '*.jinja' '*.j2' '*.tmpl' '*.tst'
+    #                     | xargs salt-lint
+    #     # Install and run `yamllint`
+    #     # Need at least `v1.17.0` for the `yaml-files` setting
+    #     - pip install --user yamllint>=1.17.0
+    #     - yamllint -s .
+    #     # Install and run `rubocop`
+    #     - gem install rubocop
+    #     - rubocop -d
+    #     # Run `shellcheck` (already pre-installed in Travis)
+    #     - shellcheck --version
+    #     - git ls-files -- '*.sh' '*.bash' '*.ksh'
+    #                     | xargs shellcheck
+    #     # Install and run `commitlint`
+    #     - npm i -D @commitlint/config-conventional
+    #                @commitlint/travis-cli
+    #     - commitlint-travis
 
     ## Define the rest of the matrix based on Kitchen testing
     # Make sure the instances listed below match up with
     # the `platforms` defined in `kitchen.yml`
     - env: INSTANCE=tomcat-install-debian-10-master-py3
-    - env: INSTANCE=tomcat-extend-debian-10-master-py3
     - env: INSTANCE=tomcat-install-ubuntu-1804-master-py3
-    - env: INSTANCE=tomcat-extend-ubuntu-1804-master-py3
+    # - env: INSTANCE=tomcat-extend-ubuntu-1804-master-py3
     # - env: INSTANCE=tomcat-install-centos-8-master-py3
     - env: INSTANCE=tomcat-install-fedora-31-master-py3
     - env: INSTANCE=tomcat-install-opensuse-leap-151-master-py3
@@ -76,7 +75,6 @@ jobs:
     # - env: INSTANCE=tomcat-install-arch-base-latest-3000-1-py2
     # - env: INSTANCE=tomcat-install-debian-10-2019-2-py3
     - env: INSTANCE=tomcat-install-debian-9-2019-2-py3
-    - env: INSTANCE=tomcat-extend-debian-9-2019-2-py3
     # - env: INSTANCE=tomcat-install-ubuntu-1804-2019-2-py3
     # - env: INSTANCE=tomcat-install-ubuntu-1604-2019-2-py3
     # - env: INSTANCE=tomcat-install-centos-8-2019-2-py3
