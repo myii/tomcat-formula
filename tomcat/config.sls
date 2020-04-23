@@ -67,6 +67,11 @@ tomcat 400_server_xml:
     - onlyif: test {{ tomcat.ver }} -lt 8
 
 tomcat server_xml:
+  cmd.run:
+    - name: |
+        cat {{ tomcat.conf_dir }}/server.xml
+    - require_in:
+      - file: tomcat server_xml
   file.managed:
     - name: {{ tomcat.conf_dir }}/server.xml
     - source: salt://tomcat/files/server.xml
@@ -81,6 +86,13 @@ tomcat server_xml:
       - service: tomcat package installed and service running
     - watch_in:
       - service: tomcat package installed and service running
+
+display new tomcat server_xml:
+  cmd.run:
+    - name: |
+        cat {{ tomcat.conf_dir }}/server.xml
+    - require:
+      - file: tomcat server_xml
 
 tomcat limits_conf:
   {% if grains.os == 'Arch' %}
