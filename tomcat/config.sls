@@ -27,6 +27,11 @@ tomcat tomcat_conf:
       - service: tomcat package installed and service running
     - watch_in:
       - service: tomcat package installed and service running
+  cmd.run:
+    - name: |
+        cat {{ tomcat.main_config }}
+    - require:
+      - file: tomcat tomcat_conf
 
 {% if tomcat.catalina_tmpdir|default %}
 catalina tmpdir:
@@ -67,11 +72,11 @@ tomcat 400_server_xml:
     - onlyif: test {{ tomcat.ver }} -lt 8
 
 tomcat server_xml:
-  cmd.run:
-    - name: |
-        cat {{ tomcat.conf_dir }}/server.xml
-    - require_in:
-      - file: tomcat server_xml
+  # cmd.run:
+  #   - name: |
+  #       cat {{ tomcat.conf_dir }}/server.xml
+  #   - require_in:
+  #     - file: tomcat server_xml
   file.managed:
     - name: {{ tomcat.conf_dir }}/server.xml
     - source: salt://tomcat/files/server.xml
@@ -86,8 +91,8 @@ tomcat server_xml:
       - service: tomcat package installed and service running
     - watch_in:
       - service: tomcat package installed and service running
-
-display new tomcat server_xml:
+#
+# display new tomcat server_xml:
   cmd.run:
     - name: |
         cat {{ tomcat.conf_dir }}/server.xml
