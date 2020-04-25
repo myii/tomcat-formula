@@ -6,7 +6,6 @@ control 'Tomcat `server.xml` config' do
   # Overide by platform
   conf_dir = '/etc/tomcat'
   user_and_group = 'tomcat'
-  server_xml_path = '/tmp/kitchen/srv/salt/file_comparison/server_xml/'
   case platform[:family]
   when 'debian'
     conf_dir = '/etc/tomcat8'
@@ -16,28 +15,29 @@ control 'Tomcat `server.xml` config' do
       case platform[:release]
       when /^10/
         conf_dir = '/etc/tomcat9'
-        server_xml_path += 'debian-10.xml'
+        platform_server_xml = 'debian-10.xml'
         user_and_group = 'tomcat'
       when /^9/
-        server_xml_path += 'debian-9.xml'
+        platform_server_xml = 'debian-9.xml'
       end
     when 'ubuntu'
       case platform[:release]
       when /^18/
-        server_xml_path += 'ubuntu-1804.xml'
+        platform_server_xml = 'ubuntu-1804.xml'
       when /^16/
-        server_xml_path += 'ubuntu-1604.xml'
+        platform_server_xml = 'ubuntu-1604.xml'
       end
     end
   when 'redhat'
-    server_xml_path += 'centos-7.xml'
+    platform_server_xml = 'centos-7.xml'
   when 'fedora'
-    server_xml_path += 'fedora-31.xml'
+    platform_server_xml = 'fedora-31.xml'
   when 'suse'
-    server_xml_path += 'opensuse-leap-151.xml'
+    platform_server_xml = 'opensuse-leap-151.xml'
     user_and_group = 'root'
   end
   server_xml_file = "#{conf_dir}/server.xml"
+  server_xml_path = "/tmp/kitchen/srv/salt/file_comparison/server_xml/#{platform_server_xml}"
   server_xml = file(server_xml_path).content
 
   describe file(server_xml_file) do
