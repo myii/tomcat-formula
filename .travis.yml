@@ -61,7 +61,7 @@ jobs:
     - env: INSTANCE=tomcat-install-debian-10-master-py3
     - env: INSTANCE=tomcat-install-ubuntu-1804-master-py3
     # - env: INSTANCE=tomcat-extend-ubuntu-1804-master-py3
-    - env: INSTANCE=tomcat-install-centos-8-master-py3
+    # - env: INSTANCE=tomcat-install-centos-8-master-py3
     - env: INSTANCE=tomcat-install-fedora-31-master-py3
     - env: INSTANCE=tomcat-install-opensuse-leap-151-master-py3
     # - env: INSTANCE=tomcat-install-amazonlinux-2-master-py3
