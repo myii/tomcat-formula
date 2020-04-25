@@ -35,7 +35,8 @@ when 'fedora'
 when 'suse'
   platform_file = 'opensuse-leap-151'
 end
-main_config_path = "/tmp/kitchen/srv/salt/file_comparison/main_config/#{platform_file}"
+main_config_path = '/tmp/kitchen/srv/salt/file_comparison/main_config/'\
+  "#{platform_file}"
 main_config = file(main_config_path).content
 
 control 'Tomcat main config' do
