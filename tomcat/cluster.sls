@@ -5,6 +5,7 @@ include:
 
 tomcat 600_server_xml:
   file.accumulated:
+    - name: 600_server_xml
     - filename: {{ tomcat.conf_dir }}/server.xml
     {% if tomcat.cluster is defined %}
     - text: {{ tomcat.cluster }}
