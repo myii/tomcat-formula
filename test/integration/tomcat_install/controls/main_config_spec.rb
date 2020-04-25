@@ -2,14 +2,15 @@
 
 # Overide by platform
 catalina_tmpdir = '/var/cache/tomcat/temp'
+main_config_file = '/etc/sysconfig/tomcat'
 user_and_group = 'tomcat'
 case platform[:family]
 when 'debian'
+  catalina_tmpdir = '/var/cache/tomcat8/temp'
+  main_config_file = '/etc/default/tomcat8'
+  user_and_group = 'tomcat8'
   case platform[:name]
   when 'debian'
-    catalina_tmpdir = '/var/cache/tomcat8/temp'
-    main_config_file = '/etc/default/tomcat8'
-    user_and_group = 'tomcat8'
     case platform[:release]
     when /^10/
       catalina_tmpdir = '/var/cache/tomcat9/temp'
@@ -30,13 +31,10 @@ when 'debian'
     end
   end
 when 'redhat'
-  main_config_file = '/etc/default/tomcat7'
   platform_file = 'centos-7'
 when 'fedora'
-  main_config_file = '/etc/default/tomcat7'
   platform_file = 'fedora-31'
 when 'suse'
-  main_config_file = '/etc/default/tomcat7'
   platform_file = 'opensuse-leap-151'
 end
 main_config_path = "/tmp/kitchen/srv/salt/file_comparison/main_config/#{platform_file}"
