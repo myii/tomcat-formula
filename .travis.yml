@@ -76,7 +76,7 @@ jobs:
     # - env: INSTANCE=tomcat-install-debian-10-2019-2-py3
     # - env: INSTANCE=tomcat-install-debian-9-2019-2-py3
     # - env: INSTANCE=tomcat-install-ubuntu-1804-2019-2-py3
-    - env: INSTANCE=tomcat-install-ubuntu-1604-2019-2-py3
+    # - env: INSTANCE=tomcat-install-ubuntu-1604-2019-2-py3
     # - env: INSTANCE=tomcat-install-centos-8-2019-2-py3
     - env: INSTANCE=tomcat-install-centos-7-2019-2-py3
     # - env: INSTANCE=tomcat-install-fedora-31-2019-2-py3
