@@ -35,6 +35,7 @@ when 'fedora'
 when 'suse'
   platform_file = 'opensuse-leap-151'
 end
+platform_file_alt = "#{platform[:name]}-#{platform[:release]}"
 main_config_path = '/tmp/kitchen/srv/salt/file_comparison/main_config/'\
   "#{platform_file}"
 main_config = file(main_config_path).content
@@ -48,6 +49,7 @@ control 'Tomcat main config' do
     it { should be_grouped_into 'root' }
     its('mode') { should cmp '0644' }
     its('content') { should include main_config }
+    its('content') { should include platform_file_alt }
   end
 end
 
