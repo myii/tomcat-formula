@@ -39,6 +39,10 @@ control 'Tomcat `server.xml` config' do
   server_xml_file = "#{conf_dir}/server.xml"
   server_xml_path = "/tmp/kitchen/srv/salt/file_comparison/server_xml/#{platform_server_xml}"
   server_xml = file(server_xml_path).content
+  server_xml = server_xml.gsub(
+    'SALT_MINION_ID_PLACEHOLDER',
+    file('/etc/salt/minion_id').content.chomp
+  )
 
   describe file(server_xml_file) do
     it { should be_file }
