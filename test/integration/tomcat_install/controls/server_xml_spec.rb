@@ -37,7 +37,8 @@ control 'Tomcat `server.xml` config' do
     user_and_group = 'root'
   end
   server_xml_file = "#{conf_dir}/server.xml"
-  server_xml_path = "/tmp/kitchen/srv/salt/file_comparison/server_xml/#{platform_server_xml}"
+  server_xml_path = '/tmp/kitchen/srv/salt/file_comparison/server_xml'\
+    "#{platform_server_xml}"
   server_xml = file(server_xml_path).content
   server_xml = server_xml.gsub(
     'SALT_MINION_ID_PLACEHOLDER',
