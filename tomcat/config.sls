@@ -39,6 +39,7 @@ catalina tmpdir:
     - name: {{ tomcat.catalina_tmpdir }}
     - user: {{ tomcat.user }}
     - group: {{ tomcat.group }}
+    - mode: '755'
     - makedirs: True
     - require_in:
       - service: tomcat package installed and service running
