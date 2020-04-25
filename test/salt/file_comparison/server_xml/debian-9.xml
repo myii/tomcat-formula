@@ -70,23 +70,23 @@
     <Connector
     
                port="8443"
-               acceptCount="100"
-               connectionTimeout="20000"
-               redirectPort="8443"
-               scheme="https"
-               disableUploadTimeout="true"
-               sslProtocol="TLS"
-               keystorePass="somerandomtext"
-               clientAuth="false"
-               maxHttpHeaderSize="8192"
-               enableLookups="false"
-               URIEncoding="UTF-8"
-               secure="true"
-               SSLEnabled="false"
-               maxThreads="150"
-               keystoreFile="/path/to/keystoreFile"
                protocol="org.apache.coyote.http11.Http11Protocol"
+               maxThreads="150"
+               URIEncoding="UTF-8"
                minSpareThreads="25"
+               sslProtocol="TLS"
+               connectionTimeout="20000"
+               secure="true"
+               maxHttpHeaderSize="8192"
+               SSLEnabled="false"
+               keystoreFile="/path/to/keystoreFile"
+               redirectPort="8443"
+               acceptCount="100"
+               keystorePass="somerandomtext"
+               scheme="https"
+               enableLookups="false"
+               clientAuth="false"
+               disableUploadTimeout="true"
     />
     
     
@@ -105,23 +105,9 @@
 
       
       
-      <Host name="tomcat-server"
-            unpackWARs="true"
-            deployXML="false"
-            autoDeploy="true">
-            <Context path=""
-                     docBase="../webapps/myapp"
-                     debug="0"
-                     reloadable="true"
-            />
-            
-            <Alias>www.example.com</Alias>
-            
-      </Host>
-      
       <Host name="example.net"
-            unpackWARs="true"
-            autoDeploy="true">
+            autoDeploy="true"
+            unpackWARs="true">
             <Context path=""
                      docBase="../webapps/myapp2"
                      debug="0"
@@ -131,14 +117,28 @@
             <Alias>www.example.net</Alias>
             
               <Valve
-                fileDateFormat="yyyy-MM-dd-HH"
-                pattern="%h %l %u %t &quot;%m http://%v%U %H&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D"
                 directory="logs"
                 className="org.apache.catalina.valves.AccessLogValve"
+                prefix="localhost_access_log."
                 suffix=".log"
-                prefix="localhost_access_log." />
+                pattern="%h %l %u %t &quot;%m http://%v%U %H&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D"
+                fileDateFormat="yyyy-MM-dd-HH" />
               <Valve
                 className="org.apache.catalina.authenticator.SingleSignOn" />
+            
+      </Host>
+      
+      <Host name="tomcat-server"
+            autoDeploy="true"
+            unpackWARs="true"
+            deployXML="false">
+            <Context path=""
+                     docBase="../webapps/myapp"
+                     debug="0"
+                     reloadable="true"
+            />
+            
+            <Alias>www.example.com</Alias>
             
       </Host>
       
