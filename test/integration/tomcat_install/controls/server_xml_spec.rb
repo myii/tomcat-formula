@@ -35,6 +35,7 @@ control 'Tomcat `server.xml` config' do
     server_xml_path += 'fedora-31.xml'
   when 'suse'
     server_xml_path += 'opensuse-leap-151.xml'
+    user_and_group = 'root'
   end
   server_xml_file = "#{conf_dir}/server.xml"
   server_xml = file(server_xml_path).content
