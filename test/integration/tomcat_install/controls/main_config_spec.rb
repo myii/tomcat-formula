@@ -25,8 +25,6 @@ when 'debian'
     when /^18/
       platform_file = 'ubuntu-1804'
     when /^16/
-      catalina_tmpdir = '/var/cache/tomcat7/temp'
-      main_config_file = '/etc/default/tomcat7'
       platform_file = 'ubuntu-1604'
     end
   end
