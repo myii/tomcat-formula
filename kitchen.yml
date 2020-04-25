@@ -195,7 +195,7 @@ suites:
       pillars_from_files:
         tomcat.sls: pillar.example
       dependencies:
-        - name: files
+        - name: file_comparison
           path: ./test/salt
     verifier:
       inspec_tests:
