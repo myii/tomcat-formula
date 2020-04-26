@@ -1,47 +1,60 @@
 # frozen_string_literal: true
 
-# Overide by platform
-catalina_tmpdir = '/var/cache/tomcat/temp'
+# Prepare platform "finger"
+platform_finger = "#{platform[:name]}-#{platform[:release].split('.')[0]}"
+
+# Default values for `control 'Tomcat main config'`
 main_config_file = '/etc/sysconfig/tomcat'
-user_and_group = 'tomcat'
+# Default values for `control 'Tomcat Catalina temp dir'`
+catalina_tmpdir = '/var/cache/tomcat/temp'
+catalina_tmpdir_user_and_group = 'tomcat'
+
+# Override by platform
 case platform[:family]
 when 'debian'
-  catalina_tmpdir = '/var/cache/tomcat8/temp'
   main_config_file = '/etc/default/tomcat8'
-  user_and_group = 'tomcat8'
-  case platform[:name]
-  when 'debian'
-    case platform[:release]
-    when /^10/
-      catalina_tmpdir = '/var/cache/tomcat9/temp'
-      main_config_file = '/etc/default/tomcat9'
-      platform_file = 'debian-10'
-      user_and_group = 'tomcat'
-    when /^9/
-      platform_file = 'debian-9'
-    end
-  when 'ubuntu'
-    case platform[:release]
-    when /^18/
-      platform_file = 'ubuntu-1804'
-    when /^16/
-      platform_file = 'ubuntu-1604'
-    end
+  catalina_tmpdir = '/var/cache/tomcat8/temp'
+  catalina_tmpdir_user_and_group = 'tomcat8'
+  case platform_finger
+  when 'debian-10'
+    main_config_file = '/etc/default/tomcat9'
+    catalina_tmpdir = '/var/cache/tomcat9/temp'
+    catalina_tmpdir_user_and_group = 'tomcat'
+  when 'debian-9'
+  when 'debian-8'
+  when 'ubuntu-18'
+  when 'ubuntu-16'
   end
 when 'redhat'
-  platform_file = 'centos-7'
+  case platform_finger
+  when 'centos-8'
+  when 'centos-7'
+  when 'centos-6'
+  when 'amazon-2'
+  when 'amazon-2018'
+  end
 when 'fedora'
-  platform_file = 'fedora-31'
+  case platform_finger
+  when 'fedora-31'
+  when 'fedora-30'
+  end
 when 'suse'
-  platform_file = 'opensuse-leap-151'
+  case platform_finger
+  when 'opensuse-15'
+  end
+when 'linux'
+  case platform_finger
+  when 'arch-5'
+  end
 end
-platform_file_alt = "#{platform[:name]}-#{platform[:release]}"
-main_config_path = '/tmp/kitchen/srv/salt/file_comparison/main_config/'\
-  "#{platform_file}"
-main_config = file(main_config_path).content
 
 control 'Tomcat main config' do
   title 'should contain the lines'
+
+  # Prepare comparison file
+  main_config_path = '/tmp/kitchen/srv/salt/file_comparison/main_config/'\
+    "#{platform_finger}"
+  main_config = file(main_config_path).content
 
   describe file(main_config_file) do
     it { should be_file }
@@ -49,7 +62,6 @@ control 'Tomcat main config' do
     it { should be_grouped_into 'root' }
     its('mode') { should cmp '0644' }
     its('content') { should include main_config }
-    its('content') { should include platform_file_alt }
   end
 end
 
@@ -58,8 +70,8 @@ control 'Tomcat Catalina temp dir' do
 
   describe file(catalina_tmpdir) do
     it { should be_directory }
-    it { should be_owned_by user_and_group }
-    it { should be_grouped_into user_and_group }
+    it { should be_owned_by catalina_tmpdir_user_and_group }
+    it { should be_grouped_into catalina_tmpdir_user_and_group }
     its('mode') { should cmp '0755' }
   end
 end
