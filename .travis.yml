@@ -88,7 +88,7 @@ jobs:
     # - env: INSTANCE=tomcat-install-centos-7-2018-3-py3
     # - env: INSTANCE=tomcat-install-fedora-30-2018-3-py3
     # - env: INSTANCE=tomcat-install-debian-9-2018-3-py2
-    # - env: INSTANCE=tomcat-install-debian-8-2018-3-py2
+    - env: INSTANCE=tomcat-install-debian-8-2018-3-py2
     # - env: INSTANCE=tomcat-install-ubuntu-1804-2018-3-py2
     # - env: INSTANCE=tomcat-install-ubuntu-1604-2018-3-py2
     # - env: INSTANCE=tomcat-install-centos-6-2018-3-py2
