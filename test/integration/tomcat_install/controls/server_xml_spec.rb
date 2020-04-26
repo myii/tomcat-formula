@@ -51,7 +51,7 @@ control 'Tomcat `server.xml` config' do
   title 'should contain the lines'
 
   server_xml_file = "#{conf_dir}/server.xml"
-  server_xml_path = '/tmp/kitchen/srv/salt/file_comparison/server_xml'\
+  server_xml_path = '/tmp/kitchen/srv/salt/file_comparison/server_xml/'\
     "#{platform_finger}.xml"
   server_xml = file(server_xml_path).content
   # Need the hostname to be used for `tomcat.cluster`
