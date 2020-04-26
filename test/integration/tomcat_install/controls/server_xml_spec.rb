@@ -56,7 +56,7 @@ control 'Tomcat `server.xml` config' do
   server_xml = file(server_xml_path).content
   # Need the hostname to be used for `tomcat.cluster`
   server_xml = server_xml.gsub(
-    'SALT_MINION_ID_PLACEHOLDER',
+    'HOSTNAME_PLACEHOLDER',
     file('/etc/salt/minion_id').content.chomp
   )
 
