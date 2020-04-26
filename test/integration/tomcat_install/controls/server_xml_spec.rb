@@ -65,6 +65,8 @@ control 'Tomcat `server.xml` config' do
     it { should be_owned_by server_xml_user_and_group }
     it { should be_grouped_into server_xml_user_and_group }
     its('mode') { should cmp '0644' }
-    its('content') { should include server_xml } unless %w[debian-9].include?(platform_finger)
+    unless %w[debian-9].include?(platform_finger)
+      its('content') { should include server_xml }
+    end
   end
 end
