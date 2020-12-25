@@ -154,14 +154,14 @@ suites:
         base:
           '*':
             - tomcat._mapdata
-            # - tomcat
-            # - tomcat.native
-            # - tomcat.config
-            # - tomcat.manager
-            # - tomcat.vhosts
-            # - tomcat.expires
-            # - tomcat.context
-            # - tomcat.cluster
+            - tomcat
+            - tomcat.native
+            - tomcat.config
+            - tomcat.manager
+            - tomcat.vhosts
+            - tomcat.expires
+            - tomcat.context
+            - tomcat.cluster
       pillars:
         top.sls:
           base:
