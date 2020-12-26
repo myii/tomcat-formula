@@ -67,7 +67,7 @@ control 'Tomcat main config' do
 
   # Prepare comparison file
   main_config_path = "main_config/#{platform_finger}"
-  main_config = inspec.profile.file(main_config_path).content
+  main_config = inspec.profile.file(main_config_path)
 
   describe file(main_config_file) do
     it { should be_file }
@@ -94,7 +94,7 @@ control 'Tomcat `server.xml` config' do
 
   server_xml_file = "#{conf_dir}/server.xml"
   server_xml_path = "server_xml/#{platform_finger}.xml"
-  server_xml = inspec.profile.file(server_xml_path).content
+  server_xml = inspec.profile.file(server_xml_path)
   # Need the hostname to be used for `tomcat.cluster`
   server_xml = server_xml.gsub(
     'HOSTNAME_PLACEHOLDER',
